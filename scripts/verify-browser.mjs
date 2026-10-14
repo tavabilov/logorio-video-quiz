@@ -29,7 +29,7 @@ if(name==='chromium')await page.screenshot({path:path.join(out,'intro-mobile.png
 await noOverflow(page,name+' mobile intro');
 await page.locator('[data-play]').click();await page.waitForFunction(()=>{const v=document.querySelector('video');return v.currentTime>.3&&!v.paused&&!v.muted});check(name+': video plays with sound enabled');await page.locator('video').evaluate(v=>v.pause());
 await page.locator('[data-start]').click();await page.locator('#block-form').waitFor();
-await page.locator('#block-form button[type=submit]').click();check(name+': required answer enforced',await page.locator('.question.invalid').count()>0);
+await page.locator('#block-form button[type=submit]').click();await page.locator('#block-form button[type=submit]').click();check(name+': required answer enforced',await page.locator('.question.invalid').count()>0);
 await answerBlock(page,quiz.content.blocks[0]);const short=page.locator('[data-answer=\"b1q2\"]');await short.fill('а'.repeat(300));check(name+': text limit explained',await page.locator('[data-limit=\"b1q2\"]').textContent().then(v=>v.includes('Достигнут лимит')));await short.fill('Тестовый пример');
 await page.locator('#block-form button[type=submit]').click();await page.getByRole('heading',{name:'Понимание речи',exact:true}).waitFor();
 await page.locator('[data-back]').click();check(name+': back preserves answer',await page.locator('[data-answer="b1q1"]').first().isChecked());
