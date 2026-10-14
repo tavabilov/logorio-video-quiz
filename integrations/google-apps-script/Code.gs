@@ -331,6 +331,8 @@ function saveSubmission(p){
       .concat(questions.map(q=>textCell_(Array.isArray(normalized.answers[q.id])?normalized.answers[q.id].join(' | '):normalized.answers[q.id])));
     const destination=sheet.getLastRow()+1;
     sheet.getRange(destination,1,1,cells.length).setValues([cells]);
+    sheet.getRange(destination,9).setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
+    sheet.setRowHeight(destination,68);
     SpreadsheetApp.flush();
     const receipt=sheet.getRange(destination,1,1,9).getValues()[0];
     if(receipt[0]!==number||receipt[7]!==normalized.key||JSON.parse(receipt[8]).hash!==hash) throw Error('Не удалось подтвердить сохранение. Повторите отправку');
