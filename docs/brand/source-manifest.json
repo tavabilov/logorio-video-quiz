@@ -1,0 +1,11 @@
+{
+  "logo": {
+    "file": "logorio-identity.png",
+    "sha256": "f8a8c556beac46fc4d5a6ab18398caa46bfc2544fdbf8b39e37e8dc35bc0888f",
+    "source": "User-provided Logorio visual concept PDF, page 1, X15"
+  },
+  "sticker": {
+    "file": "learning-sticker.png",
+    "source": "Same PDF, page 3, X7"
+  }
+}
