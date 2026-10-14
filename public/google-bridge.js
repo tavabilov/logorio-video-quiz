@@ -3,7 +3,7 @@ window.sendLogorioToGoogle=async function(payload){
  const config=window.LOGORIO_STATIC,endpoint=config?.receiver;
  if(!endpoint||!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(endpoint))throw Error('Приём ответов ещё не подключён. Заполненные ответы сохранены на этом устройстве.');
  if(!window.logorioBridgePromise){window.logorioBridgePromise=new Promise((resolve,reject)=>{
-  const channel=crypto.randomUUID(),frame=document.createElement('iframe');frame.hidden=true;frame.title='Защищённая отправка ответов';frame.referrerPolicy='no-referrer';
+  const channel=crypto.randomUUID(),frame=document.createElement('iframe');frame.style.cssText='position:fixed;bottom:0;right:0;width:1px;height:1px;opacity:0;pointer-events:none;border:0';frame.setAttribute('aria-hidden','true');frame.title='Защищённая отправка ответов';frame.referrerPolicy='no-referrer';
   const timeout=setTimeout(()=>{window.removeEventListener('message',ready);frame.remove();window.logorioBridgePromise=null;reject(Error('Не удалось подключиться к приёму ответов. Попробуйте ещё раз.'))},30000);
   function ready(event){const allowed=event.origin==='https://script.google.com'||event.origin==='https://script.googleusercontent.com'||/^https:\/\/[a-z0-9-]+-script\.googleusercontent\.com$/.test(event.origin);if(!allowed||!event.data||event.data.channel!==channel||event.data.type!=='logorio:ready')return;try{if(event.source.top!==window)return}catch{return}clearTimeout(timeout);window.removeEventListener('message',ready);resolve({channel,source:event.source,origin:event.origin,frame})}
   window.addEventListener('message',ready);frame.src=endpoint+'?channel='+encodeURIComponent(channel);document.body.append(frame);
