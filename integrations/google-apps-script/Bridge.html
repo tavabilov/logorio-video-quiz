@@ -1,0 +1,29 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><p id="state" role="status">Подключаем отправку ответов…</p><script>
+'use strict';
+const channel=<?!= JSON.stringify(channel) ?>;
+const allowedOrigin=<?!= JSON.stringify(allowedOrigin) ?>;
+function send(data){window.top.postMessage(Object.assign({channel},data),allowedOrigin)}
+let pending=false;
+window.addEventListener('message',function(e){
+  if(e.origin!==allowedOrigin||e.source!==window.top)return;
+  const m=e.data;
+  if(!m||m.channel!==channel||m.type!=='logorio:submit'||typeof m.requestId!=='string'||!/^[\w-]{8,100}$/.test(m.requestId))return;
+  if(pending){send({type:'logorio:error',requestId:m.requestId,error:'Отправка уже выполняется'});return}
+  pending=true;
+  document.getElementById('state').textContent='Сохраняем ответы…';
+  google.script.run.withSuccessHandler(function(receipt){
+    pending=false;
+    if(!receipt||typeof receipt.id!=='string'||typeof receipt.number!=='string'){
+      send({type:'logorio:error',requestId:m.requestId,error:'Нет подтверждения сохранения'});return;
+    }
+    document.getElementById('state').textContent='Ответы сохранены';
+    send({type:'logorio:receipt',requestId:m.requestId,id:receipt.id,number:receipt.number});
+  }).withFailureHandler(function(){
+    pending=false;
+    document.getElementById('state').textContent='Не удалось сохранить ответы. Повторите отправку.';
+    // Do not expose backend exception text or submitted values to the public page.
+    send({type:'logorio:error',requestId:m.requestId,error:'Не удалось подтвердить сохранение. Проверьте ответы и повторите отправку.'});
+  }).saveSubmission(m.payload);
+});
+send({type:'logorio:ready'});
+</script></body></html>

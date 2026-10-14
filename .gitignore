@@ -1,0 +1,13 @@
+node_modules/
+data/
+.env
+.DS_Store
+.env.*
+!.env.example
+tmp/
+output/
+reference/
+.playwright-mcp/
+.impeccable/review/
+dist/
+public/publish/

@@ -1,0 +1,10 @@
+import { DatabaseSync,backup } from 'node:sqlite';
+import {mkdirSync,readdirSync,unlinkSync,cpSync,existsSync,writeFileSync} from 'node:fs';
+import path from 'node:path';
+const data=path.resolve(process.env.DATA_DIR||'data'),dir=path.join(data,'backups');mkdirSync(dir,{recursive:true,mode:0o700});
+const stamp=new Date().toISOString().replace(/[:.]/g,'-'),target=path.join(dir,stamp);mkdirSync(target,{mode:0o700});
+const db=new DatabaseSync(path.join(data,'quiz.sqlite'));await backup(db,path.join(target,'quiz.sqlite'));db.close();
+if(existsSync(path.join(data,'uploads')))cpSync(path.join(data,'uploads'),path.join(target,'uploads'),{recursive:true});
+if(existsSync(path.join(data,'deleted-submissions.json')))cpSync(path.join(data,'deleted-submissions.json'),path.join(target,'deleted-submissions.json'));
+writeFileSync(path.join(target,'manifest.json'),JSON.stringify({createdAt:new Date().toISOString(),database:'quiz.sqlite',uploads:'uploads'},null,2));
+const copies=readdirSync(dir).filter(x=>/^\d{4}-/.test(x)).sort();for(const old of copies.slice(0,-7)){const {rmSync}=await import('node:fs');rmSync(path.join(dir,old),{recursive:true});}console.log('Резервная копия сохранена: '+target);

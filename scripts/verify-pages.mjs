@@ -1,0 +1,10 @@
+import {createServer} from 'node:http';
+import {readFileSync} from 'node:fs';
+import assert from 'node:assert/strict';
+import {chromium,webkit} from '@playwright/test';
+const base='/logorio-video-quiz/',content=JSON.parse(readFileSync('content/quiz.json'));
+const server=createServer((req,res)=>{let p=req.url.split('?')[0];if(!p.startsWith(base)){res.writeHead(404).end();return}p=p.slice(base.length)||'index.html';try{res.setHeader('Content-Type',p.endsWith('.js')?'application/javascript':p.endsWith('.css')?'text/css':p.endsWith('.html')?'text/html':p.endsWith('.mp4')?'video/mp4':'application/octet-stream');res.end(readFileSync('dist/'+p))}catch{res.writeHead(404).end()}});
+await new Promise(r=>server.listen(4180,'127.0.0.1',r));
+try{for(const engine of [chromium,webkit]){const browser=await engine.launch();try{const page=await browser.newPage({viewport:{width:390,height:844}}),errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(r.url())});await page.goto('http://127.0.0.1:4180'+base);await page.locator('[data-start]').waitFor();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),390);await page.locator('[data-start]').click();
+for(const b of content.blocks){for(const q of b.questions){const field=page.locator(`[data-question="${q.id}"]`);if(['single','multiple'].includes(q.type))await field.locator('input[data-answer]').first().check();else await field.locator('[data-answer]').fill('Вымышленный тестовый ответ');}await page.locator('#block-form button[type=submit]').click();}
+await page.locator('#contact-name').fill('Тестовый родитель');await page.locator('#contact-channel').fill('parent@example.test');await page.locator('[data-contact=consent]').check();await page.locator('#send-button').click();await page.getByText('Приём ответов ещё не подключён.',{exact:false}).waitFor();assert.equal(await page.getByRole('heading',{name:'Ответы получены',exact:true}).count(),0);assert.deepEqual(errors,[]);console.log(engine.name()+': Pages assets, mobile flow and unconfigured receiver passed');}finally{await browser.close();}}}finally{server.close();}
