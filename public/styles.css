@@ -60,3 +60,9 @@ h1,h2{font-family:Shadow,Montserrat,Arial,sans-serif;font-weight:400;letter-spac
 .step-main{animation:none}.quiz-flow .step-heading,.quiz-flow .lesson,.quiz-flow .questions{animation:chapter-arrive .28s var(--motion-arrive)}body[data-quiz-direction=back] .quiz-flow .step-heading,body[data-quiz-direction=back] .quiz-flow .lesson,body[data-quiz-direction=back] .quiz-flow .questions{animation-name:chapter-return}
 @media(prefers-reduced-motion:reduce){.quiz-flow .step-heading,.quiz-flow .lesson,.quiz-flow .questions{animation:none!important}}
 .quiz-flow{overflow-x:clip;overflow-clip-margin:6px}
+
+/* Use the original logo alpha as a solid ink silhouette on the page paper. */
+.brand-logo{background:transparent;border-radius:0}
+.brand-logo img{opacity:0}
+.brand-logo::after{content:'';position:absolute;inset:0;background:var(--ink);mask:url('/brand/logorio-identity.png') -10px -1px / 240px auto no-repeat;-webkit-mask:url('/brand/logorio-identity.png') -10px -1px / 240px auto no-repeat}
+@media(max-width:700px){.brand-logo::after{mask-size:173px auto;-webkit-mask-size:173px auto;mask-position:-7px 0;-webkit-mask-position:-7px 0}}
