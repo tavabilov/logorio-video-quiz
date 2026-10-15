@@ -6,7 +6,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 const data=mkdtempSync(path.join(tmpdir(),'logorio-ui-')),port=4187,base=`http://127.0.0.1:${port}`;
 const password='synthetic-local-test-password-2026';
-const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:String(port),DATA_DIR:data,ADMIN_PASSWORD:password},stdio:'ignore'});
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:String(port),DATA_DIR:data,CONTENT_FILE:path.resolve('content/versions/1.json'),ADMIN_PASSWORD:password},stdio:'ignore'});
 const out=path.resolve('.impeccable/review');mkdirSync(out,{recursive:true});
 const report={checkedAt:new Date().toISOString(),scope:'Local isolated test database; synthetic answers; browser emulation, not physical phones',checks:[]};
 const check=(name,value=true)=>{assert.ok(value,name);report.checks.push(name)};

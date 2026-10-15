@@ -242,6 +242,644 @@ const INITIAL_QUIZ = {
     }
   ]
 };
+// Frozen version 2: questions only, no completed client answers.
+const VERSION_2_QUIZ = {
+  "title": "Давайте подготовимся к встрече",
+  "offer": "Посмотрите пояснения и заполните анкету о развитии ребёнка. Ответы помогут специалисту подготовиться к разговору с вами.",
+  "intro": "20 тематических блоков: от одного до четырёх вопросов в каждом. Можно вернуться назад, пропустить необязательный вопрос и продолжить позже на этом устройстве.",
+  "completionText": "Анкета предназначена для последующего разбора специалистом. Автоматическая диагностика не проводится.",
+  "introVideo": "/media/demo.mp4",
+  "demo": true,
+  "blocks": [
+    {
+      "id": "intake_b1",
+      "title": "О ребёнке и родителе",
+      "description": "Начнём с основных сведений. В тестовой версии используйте вымышленные данные.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «О ребёнке и родителе». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q1",
+          "text": "Фамилия и имя ребёнка",
+          "type": "short",
+          "required": true,
+          "maxLength": 500
+        },
+        {
+          "id": "intake_q2",
+          "text": "Дата рождения ребёнка и его возраст на сегодня",
+          "type": "short",
+          "required": true,
+          "maxLength": 500
+        },
+        {
+          "id": "intake_q58",
+          "text": "Кто заполняет анкету? Укажите фамилию, имя, отчество и степень родства",
+          "type": "short",
+          "required": true,
+          "maxLength": 500,
+          "hint": "Для проверки сайта используйте вымышленное имя."
+        }
+      ]
+    },
+    {
+      "id": "intake_b2",
+      "title": "Беременность и зачатие",
+      "description": "Расскажите о беременности и подготовке к ней.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Беременность и зачатие». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q3",
+          "text": "От какой по счёту беременности и каких по счёту родов родился ребёнок?",
+          "type": "short",
+          "required": false,
+          "maxLength": 500
+        },
+        {
+          "id": "intake_q4",
+          "text": "Возраст матери и отца на момент зачатия ребёнка",
+          "type": "short",
+          "required": false,
+          "maxLength": 500
+        },
+        {
+          "id": "intake_q5",
+          "text": "Беременность наступила с помощью искусственного оплодотворения?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q6",
+          "text": "Лечение в рамках бесплодия (какие препараты и манипуляции)",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        }
+      ]
+    },
+    {
+      "id": "intake_b3",
+      "title": "Течение беременности",
+      "description": "Вспомните особенности беременности и лечение, если оно было.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Течение беременности». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q7",
+          "text": "Была ли угроза прерывания? На каком сроке? Какое лечение?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q8",
+          "text": "Были ли маловодие, многоводие, нарушения работы или отслойка плаценты?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "Если да, укажите срок беременности и известные подробности."
+        },
+        {
+          "id": "intake_q9",
+          "text": "Был ли токсикоз? В каком триместре и как он проявлялся?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q10",
+          "text": "Были ли у матери заболевания или другие особенности состояния во время беременности?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "Например: анемия, грипп, ОРЗ, отёки, повышенное артериальное давление."
+        }
+      ]
+    },
+    {
+      "id": "intake_b4",
+      "title": "Эмоциональные обстоятельства",
+      "description": "Здесь можно описать важные обстоятельства. Можно не отвечать на чувствительные вопросы.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Эмоциональные обстоятельства». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q11",
+          "text": "Психотравмирующие ситуации в период беременности",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q22",
+          "text": "Стресс (продолжительный или непродолжительный) у мамы или ребенка, разлучение с матерью?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q24",
+          "text": "Был ли ребёнок эмоционально зависим от мамы? Как это проявлялось или проявляется сейчас?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        }
+      ]
+    },
+    {
+      "id": "intake_b5",
+      "title": "Основные сведения о родах",
+      "description": "Укажите то, что помните или можете посмотреть в выписке.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Основные сведения о родах». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q12",
+          "text": "Естественные роды или кесарево сечение?",
+          "type": "single",
+          "required": false,
+          "maxLength": 4000,
+          "options": [
+            "Естественные роды",
+            "Кесарево сечение",
+            "Не помню"
+          ],
+          "allowOther": true
+        },
+        {
+          "id": "intake_q13",
+          "text": "На каком сроке беременности произошли роды?",
+          "type": "short",
+          "required": false,
+          "maxLength": 500
+        },
+        {
+          "id": "intake_q14",
+          "text": "Сколько баллов по шкале Апгар было у ребёнка?",
+          "type": "short",
+          "required": false,
+          "maxLength": 500
+        }
+      ]
+    },
+    {
+      "id": "intake_b6",
+      "title": "Как проходили роды",
+      "description": "Один подробный вопрос. Подсказки помогут вспомнить важные особенности.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Как проходили роды». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q15",
+          "text": "Как проходили роды?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "Опишите, что помните: активность родовой деятельности; раннее отхождение вод; самостоятельное начало или вызванные роды; стремительные или затяжные роды; стимуляция; эпидуральная анестезия; выдавливание, щипцы или вакуум; тракция за голову; головное предлежание или нет; обвитие пуповиной."
+        }
+      ]
+    },
+    {
+      "id": "intake_b7",
+      "title": "После рождения",
+      "description": "Вспомните состояние ребёнка после рождения и первые месяцы.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «После рождения». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q16",
+          "text": "Была ли у новорождённого желтуха? Как долго она сохранялась и какое лечение проводилось?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q17",
+          "text": "На какие сутки ребёнка выписали?",
+          "type": "short",
+          "required": false,
+          "maxLength": 500
+        },
+        {
+          "id": "intake_q18",
+          "text": "Вес и рост ребёнка при рождении",
+          "type": "short",
+          "required": false,
+          "maxLength": 500
+        },
+        {
+          "id": "intake_q19",
+          "text": "Какие особенности вы наблюдали у ребёнка после рождения?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "Укажите нарушения сна и бодрствования, в том числе если ребёнок почти всё время спал; срыгивания фонтаном; двигательное беспокойство."
+        }
+      ]
+    },
+    {
+      "id": "intake_b8",
+      "title": "Кормление и привычки",
+      "description": "Расскажите о кормлении и использовании соски или бутылочки.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Кормление и привычки». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q25",
+          "text": "Какое было вскармливание — грудное или искусственное?",
+          "type": "short",
+          "required": false,
+          "maxLength": 500
+        },
+        {
+          "id": "intake_q26",
+          "text": "Пользовался ли ребёнок соской, бутылочкой, поильником или бутылочкой с трубочкой? До какого возраста?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q27",
+          "text": "Пьет ли ребенок сейчас из бутылки?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        }
+      ]
+    },
+    {
+      "id": "intake_b9",
+      "title": "Двигательное развитие",
+      "description": "Вспомните, когда появились основные двигательные навыки.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Двигательное развитие». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q28",
+          "text": "Как вы оцениваете двигательное развитие ребёнка? Есть ли трудности?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "В исходной анкете: соответствует ли моторное развитие возрастной норме. Если затрудняетесь оценить, опишите свои наблюдения."
+        },
+        {
+          "id": "intake_q29",
+          "text": "В каком возрасте ребёнок сел?",
+          "type": "short",
+          "required": false,
+          "maxLength": 500
+        },
+        {
+          "id": "intake_q30",
+          "text": "В каком возрасте ребёнок начал самостоятельно ходить?",
+          "type": "short",
+          "required": false,
+          "maxLength": 500
+        },
+        {
+          "id": "intake_q31",
+          "text": "В каком возрасте ребёнок начал ползать и как он ползал?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "Быстро ли ползал? Был ли способ ползания, который в исходной анкете назван «раненый солдат»? Если ребёнок не ползал, так и напишите."
+        }
+      ]
+    },
+    {
+      "id": "intake_b10",
+      "title": "Ранние звуки и понимание речи",
+      "description": "Опишите ранние звуки и то, как ребёнок сейчас понимает обращённую речь.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Ранние звуки и понимание речи». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q32",
+          "text": "Были ли гуление и лепет? В какие периоды?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q36",
+          "text": "Откликается ли ребёнок на имя?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q37",
+          "text": "Понимает ли ребёнок просьбы?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        }
+      ]
+    },
+    {
+      "id": "intake_b11",
+      "title": "Речь и выражение просьб",
+      "description": "Расскажите, как ребёнок выражает просьбы и строит речь.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Речь и выражение просьб». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q38",
+          "text": "Как ребёнок выражает просьбы?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "Жестом, словом, фразой или другим способом — можно привести пример."
+        },
+        {
+          "id": "intake_q39",
+          "text": "Есть ли у ребёнка речь и какая?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "Слова, слоги, звукоподражания, предложения — опишите своими словами."
+        },
+        {
+          "id": "intake_q54",
+          "text": "Путает ли ребёнок местоимения?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "Примеры из исходной анкеты: «мой мама», «моя папа». Можно привести свой пример."
+        }
+      ]
+    },
+    {
+      "id": "intake_b12",
+      "title": "Болезни и изменения в развитии",
+      "description": "Укажите болезни, травмы, препараты и изменения, которые вы наблюдали.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Болезни и изменения в развитии». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q20",
+          "text": "Были ли ЧМТ и болезни у ребенка? (какие и в каком возрасте?)",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q21",
+          "text": "Травмы, интоксикации, прием ребенком медикаментов (нейролептиков, ноотропов, антибиотиков), каких и в каком возрасте?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q23",
+          "text": "Отмечается ли регресс в развитии? В каком возрасте? С чем был связан?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        }
+      ]
+    },
+    {
+      "id": "intake_b13",
+      "title": "Наблюдения о здоровье",
+      "description": "Опишите наблюдения, аллергии и состояние зрения.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Наблюдения о здоровье». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q48",
+          "text": "Бывает ли, что ребёнок внезапно замирает и смотрит в одну точку?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q49",
+          "text": "Есть ли у ребёнка аллергия? На что?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q50",
+          "text": "Что известно о состоянии зрения ребёнка?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        }
+      ]
+    },
+    {
+      "id": "intake_b14",
+      "title": "Заключения специалистов",
+      "description": "Можно указать известные заключения и диагнозы своими словами.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Заключения специалистов». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q55",
+          "text": "Какие есть заключения специалистов и результаты обследований?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "В исходной анкете: заключения невролога, сурдолога, психиатра; эпиактивность и заключение ЭЭГ. Здесь достаточно текстового описания, без загрузки документов."
+        },
+        {
+          "id": "intake_q57",
+          "text": "Есть ли у ребёнка установленный диагноз по МКБ?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        }
+      ]
+    },
+    {
+      "id": "intake_b15",
+      "title": "Самостоятельность",
+      "description": "Расскажите о повседневных навыках и помощи, которая нужна ребёнку.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Самостоятельность». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q33",
+          "text": "Какие навыки самообслуживания есть у ребёнка?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "Просится ли в туалет, самостоятельно ли одевается, ест и пьёт?"
+        },
+        {
+          "id": "intake_q40",
+          "text": "Возникают ли трудности, когда нужно одеть или раздеть ребёнка?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        }
+      ]
+    },
+    {
+      "id": "intake_b16",
+      "title": "Питание, сон и туалет",
+      "description": "Опишите привычки и трудности в повседневной жизни.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Питание, сон и туалет». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q43",
+          "text": "Что ребёнок любит есть? Насколько разнообразно питание?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "Есть ли продукты, которые ребёнок категорически не ест?"
+        },
+        {
+          "id": "intake_q45",
+          "text": "Нормальный ли у ребенка сон? Есть ли проблемы?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q46",
+          "text": "Есть ли у ребенка проблемы со стулом и туалетом в целом?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q47",
+          "text": "Бывает ли ночной энурез?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "Этот вопрос относится к детям от 4 лет. Если ребёнок младше, пропустите вопрос или напишите «Не относится»."
+        }
+      ]
+    },
+    {
+      "id": "intake_b17",
+      "title": "Игры, интересы и поведение",
+      "description": "Вспомните любимые занятия и особенности поведения.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Игры, интересы и поведение». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q41",
+          "text": "Какие у ребёнка интересы и увлечения?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q51",
+          "text": "Играет ли ребенок? В какие игры?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q44",
+          "text": "Любит ли ребенок крутиться вокруг себя?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q42",
+          "text": "Есть ли у вас чувство, что у вашего ребенка отсутствует чувство страха?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        }
+      ]
+    },
+    {
+      "id": "intake_b18",
+      "title": "Обучение и занятия",
+      "description": "Расскажите, где ребёнок учится и с какими специалистами занимается.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Обучение и занятия». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q52",
+          "text": "Посещает ли ребёнок детский сад, школу, центр или другие занятия?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q53",
+          "text": "Занимается ли ребёнок сейчас или занимался раньше со специалистами?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000,
+          "hint": "Например: АВА-терапевт, психолог, нейропсихолог, логопед, дефектолог."
+        }
+      ]
+    },
+    {
+      "id": "intake_b19",
+      "title": "Семейная история",
+      "description": "Ответьте, если знаете и готовы поделиться. Эти вопросы можно пропустить.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Семейная история». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q34",
+          "text": "Были ли трудности с обучением у родственников?  Если да, то какие?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        },
+        {
+          "id": "intake_q35",
+          "text": "Были ли в семье родственники с алкогольной или наркотической зависимостью?",
+          "type": "long",
+          "required": false,
+          "maxLength": 4000
+        }
+      ]
+    },
+    {
+      "id": "intake_b20",
+      "title": "Ваш главный запрос",
+      "description": "Завершите анкету тем, что для вас сейчас важнее всего.",
+      "video": "/media/demo.mp4",
+      "poster": "/poster.svg",
+      "transcript": "Здесь будет пояснение специалиста по теме «Ваш главный запрос». Пока это видео-заглушка со звуком. Вопросы перенесены из анкеты центра. Если не помните ответ, можно так и написать; необязательные вопросы разрешено пропустить. В демонстрационной версии используйте только вымышленные сведения.",
+      "questions": [
+        {
+          "id": "intake_q56",
+          "text": "Какой ваш главный запрос? Какую основную проблему вы видите?",
+          "type": "long",
+          "required": true,
+          "maxLength": 4000
+        }
+      ]
+    }
+  ]
+};
 function validateSubmission(p,c) {
   if(!p || typeof p.key !== 'string' || !/^[\w-]{8,100}$/.test(p.key)) throw Error('Некорректный ключ отправки');
   if(typeof p.name !== 'string' || !p.name.trim() || p.name.length>150) throw Error('Укажите имя');
@@ -272,10 +910,28 @@ function validateSubmission(p,c) {
 }
 
 const META_HEADERS = ['Номер','Дата (Москва)','Имя взрослого','Контакт','Статус','Заметка сотрудника','Версия квиза','Ключ отправки','Ответы JSON'];
+const VERSION_SHEETS = {1:'Ответы',2:'Ответы — версия 2'};
+const SNAPSHOT_SHEET = 'Снимки — версия 2';
+const SNAPSHOT_HEADERS = ['Снимок','Часть','Всего частей','Фрагмент JSON (префикс json:)'];
+const SNAPSHOT_INLINE_LIMIT = 49000;
+const SNAPSHOT_CHUNK_SIZE = 40000;
 function properties_(){ return PropertiesService.getScriptProperties(); }
-function quiz_(){
-  const raw=properties_().getProperty('QUIZ_VERSION_1');
-  return raw ? JSON.parse(raw) : INITIAL_QUIZ;
+function digest_(s){
+  return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,s,Utilities.Charset.UTF_8).map(x=>('0'+(x&255).toString(16)).slice(-2)).join('');
+}
+function quiz_(version){
+  if(version===1){
+    const raw=properties_().getProperty('QUIZ_VERSION_1');
+    return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(INITIAL_QUIZ));
+  }
+  if(version===2) return JSON.parse(JSON.stringify(VERSION_2_QUIZ));
+  throw Error('Неизвестная версия квиза');
+}
+function pinVersion_(props,version,c){
+  const key='QUIZ_FINGERPRINT_'+version, fingerprint=digest_(JSON.stringify(c));
+  const pinned=props.getProperty(key);
+  if(pinned && pinned!==fingerprint) throw Error('Опубликованная версия изменена. Создайте новый номер версии');
+  if(!pinned) props.setProperty(key,fingerprint);
 }
 function doGet(e){
   const channel=String((e && e.parameter && e.parameter.channel)||'');
@@ -289,53 +945,114 @@ function textCell_(v){
   const s=String(v==null?'':v);
   return /^[\s]*[=+@-]/.test(s) ? "'"+s : s;
 }
+function ensureColumns_(sheet,width){
+  const current=sheet.getMaxColumns();
+  if(current<width) sheet.insertColumnsAfter(current,width-current);
+}
+function header_(sheet,headers){
+  ensureColumns_(sheet,headers.length);
+  sheet.getRange(1,1,1,headers.length).setValues([headers]).setBackground('#29371e').setFontColor('#f6f8e4').setFontFamily('Arial').setFontSize(11).setFontWeight('bold').setWrap(true);
+  sheet.setFrozenRows(1);
+  sheet.setFrozenColumns(1);
+  sheet.setRowHeight(1,110);
+}
+function questionList_(c){ return c.blocks.reduce((a,b)=>a.concat(b.questions),[]); }
+function answerSheet_(ss,version,questions){
+  const name=VERSION_SHEETS[version], sheet=ss.getSheetByName(name)||ss.insertSheet(name);
+  const headers=META_HEADERS.concat(questions.map(q=>q.id+' · '+q.text));
+  if(sheet.getLastRow()===0){
+    header_(sheet,headers);
+    sheet.setColumnWidths(1,headers.length,220);
+    sheet.setColumnWidth(1,110);sheet.setColumnWidth(5,140);sheet.setColumnWidth(9,300);
+    if(questions.length) sheet.setColumnWidths(10,questions.length,300);
+  }
+  if(sheet.getLastColumn()<headers.length) throw Error('В листе не хватает колонок этой версии');
+  const actual=sheet.getRange(1,1,1,headers.length).getValues()[0];
+  if(META_HEADERS.some((h,i)=>actual[i]!==h)) throw Error('Изменён порядок служебных колонок');
+  if(questions.some((q,i)=>{const h=String(actual[9+i]);return h.indexOf(q.id+' · ')!==0 && h.indexOf(q.id+' — ')!==0;})) throw Error('Изменён порядок идентификаторов вопросов');
+  return sheet;
+}
+function snapshotParts_(snapshot){
+  const parts=[];
+  for(let offset=0;offset<snapshot.length;){
+    let end=Math.min(offset+SNAPSHOT_CHUNK_SIZE,snapshot.length);
+    // Never split a UTF-16 surrogate pair across separate Sheets strings.
+    if(end<snapshot.length && /[\uD800-\uDBFF]/.test(snapshot.charAt(end-1)) && /[\uDC00-\uDFFF]/.test(snapshot.charAt(end))) end--;
+    parts.push(snapshot.slice(offset,end));offset=end;
+  }
+  return parts;
+}
+function storeSnapshot_(ss,snapshot,hash,version){
+  if(snapshot.length<=SNAPSHOT_INLINE_LIMIT) return snapshot;
+  if(version!==2) throw Error('Снимок превышает лимит ячейки');
+  const sheet=ss.getSheetByName(SNAPSHOT_SHEET)||ss.insertSheet(SNAPSHOT_SHEET);
+  if(sheet.getLastRow()===0){header_(sheet,SNAPSHOT_HEADERS);sheet.setColumnWidths(1,4,180);sheet.setColumnWidth(4,480);}
+  const parts=snapshotParts_(snapshot), snapshotKey=Utilities.getUuid();
+  const start=sheet.getLastRow()+1;
+  // Prefix every fragment so arbitrary user text can never become a formula.
+  const rows=parts.map((part,i)=>[snapshotKey,i+1,parts.length,'json:'+part]);
+  sheet.getRange(start,1,parts.length,4).setValues(rows).setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
+  sheet.setRowHeights(start,parts.length,32);
+  return JSON.stringify({format:'logorio-json-chunks-v1',hash,consent:true,version,snapshotSheet:SNAPSHOT_SHEET,snapshotKey,parts:parts.length,totalChars:snapshot.length,snapshotHash:digest_(snapshot)});
+}
+function readSnapshot_(ss,cell){
+  const stored=JSON.parse(cell);
+  if(stored.format!=='logorio-json-chunks-v1') return stored;
+  if(stored.snapshotSheet!==SNAPSHOT_SHEET || !Number.isInteger(stored.parts) || stored.parts<1 || stored.parts>20) throw Error('Некорректный реестр снимка');
+  const sheet=ss.getSheetByName(SNAPSHOT_SHEET);
+  if(!sheet || sheet.getLastRow()<2) throw Error('Снимок не найден');
+  const rows=sheet.getRange(2,1,sheet.getLastRow()-1,4).getValues().filter(row=>row[0]===stored.snapshotKey).sort((a,b)=>a[1]-b[1]);
+  if(rows.length!==stored.parts || rows.some((r,i)=>r[1]!==i+1 || r[2]!==stored.parts || typeof r[3]!=='string' || r[3].indexOf('json:')!==0)) throw Error('Снимок сохранён не полностью');
+  const snapshot=rows.map(row=>row[3].slice(5)).join('');
+  if(snapshot.length!==stored.totalChars || digest_(snapshot)!==stored.snapshotHash) throw Error('Снимок повреждён');
+  const parsed=JSON.parse(snapshot);
+  if(parsed.hash!==stored.hash || parsed.version!==stored.version) throw Error('Снимок не соответствует анкете');
+  return parsed;
+}
 function saveSubmission(p){
-  if(!p || p.version!==1) throw Error('Неизвестная версия квиза');
+  if(!p || !Number.isInteger(p.version) || !Object.prototype.hasOwnProperty.call(VERSION_SHEETS,p.version)) throw Error('Неизвестная версия квиза');
   if(typeof p.key!=='string'||!/^[A-Za-z0-9][\w-]{7,99}$/.test(p.key)) throw Error('Некорректный ключ отправки');
-  if(JSON.stringify(p).length>60000) throw Error('Отправка слишком большая');
-  const c=quiz_();
-  const normalized=validateSubmission(p,c);
-  const canonical=JSON.stringify(normalized);
-  const hash=Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,canonical,Utilities.Charset.UTF_8).map(x=>('0'+(x&255).toString(16)).slice(-2)).join('');
+  if(JSON.stringify(p).length>(p.version===1?60000:300000)) throw Error('Отправка слишком большая');
   const lock=LockService.getScriptLock();
   lock.waitLock(30000);
   try {
     const props=properties_(), sid=props.getProperty('SPREADSHEET_ID');
     if(!sid) throw Error('Приём ответов ещё не настроен');
+    const c=quiz_(p.version);
+    pinVersion_(props,p.version,c);
+    const normalized=validateSubmission(p,c), hash=digest_(JSON.stringify(normalized));
     const ss=SpreadsheetApp.openById(sid);
-    const sheet=ss.getSheetByName('Ответы')||ss.insertSheet('Ответы');
-    const questions=c.blocks.reduce((a,b)=>a.concat(b.questions),[]);
-    const headers=META_HEADERS.concat(questions.map(q=>q.id+' · '+q.text));
-    if(sheet.getLastRow()===0) sheet.getRange(1,1,1,headers.length).setValues([headers]);
-    // Validate identity-bearing positions; descriptive headers may be customized by the owner.
-    if(sheet.getLastColumn()<25) throw Error('Таблица должна иметь 9 служебных и 16 колонок ответов');
-    const last=sheet.getLastRow();
-    if(last>1){
-      const found=sheet.getRange(2,8,last-1,1).createTextFinder(normalized.key).matchEntireCell(true).findNext();
+    // Keys are global across versions: never interpret a v1 retry as a fresh v2 row.
+    for(const version of Object.keys(VERSION_SHEETS)){
+      const existing=ss.getSheetByName(VERSION_SHEETS[version]);
+      if(!existing || existing.getLastRow()<2) continue;
+      const found=existing.getRange(2,8,existing.getLastRow()-1,1).createTextFinder(normalized.key).matchEntireCell(true).findNext();
       if(found){
-        const row=sheet.getRange(found.getRow(),1,1,9).getValues()[0];
-        const stored=JSON.parse(row[8]);
+        const row=existing.getRange(found.getRow(),1,1,9).getValues()[0], stored=readSnapshot_(ss,row[8]);
         if(stored.hash!==hash) throw Error('Ключ уже использован для других ответов');
         SpreadsheetApp.flush();
         return {id:normalized.key,number:String(row[0])};
       }
     }
+    const questions=questionList_(c), sheet=answerSheet_(ss,p.version,questions);
+    const snapshot=JSON.stringify({hash,consent:true,version:p.version,content:c,answers:normalized.answers});
+    if(snapshot.length>800000) throw Error('Снимок слишком большой');
     const counter=Number(props.getProperty('NEXT_SUBMISSION_NUMBER')||'1');
     if(!Number.isSafeInteger(counter)||counter<1) throw Error('Некорректный счётчик');
-    // Reserve number before writing: failures may leave gaps but never reuse a number.
+    // A failed write may leave a gap, but the global number can never be reused.
     props.setProperty('NEXT_SUBMISSION_NUMBER',String(counter+1));
-    const number='L-'+String(counter).padStart(6,'0');
-    const snapshot=JSON.stringify({hash,consent:true,version:1,content:c,answers:normalized.answers});
-    if(snapshot.length>49000) throw Error('Снимок превышает лимит ячейки');
-    const cells=[number,Utilities.formatDate(new Date(),'Europe/Moscow','yyyy-MM-dd HH:mm:ss'),textCell_(normalized.name),textCell_(normalized.contact),'Новая','',1,normalized.key,snapshot]
+    const number='L-'+String(counter).padStart(6,'0'), snapshotCell=storeSnapshot_(ss,snapshot,hash,p.version);
+    const cells=[number,Utilities.formatDate(new Date(),'Europe/Moscow','yyyy-MM-dd HH:mm:ss'),textCell_(normalized.name),textCell_(normalized.contact),'Новая','',p.version,normalized.key,snapshotCell]
       .concat(questions.map(q=>textCell_(Array.isArray(normalized.answers[q.id])?normalized.answers[q.id].join(' | '):normalized.answers[q.id])));
     const destination=sheet.getLastRow()+1;
-    sheet.getRange(destination,1,1,cells.length).setValues([cells]);
+    const range=sheet.getRange(destination,1,1,cells.length);
+    range.setNumberFormat('@').setFontFamily('Arial').setFontSize(11).setFontColor('#29371e').setWrap(true).setValues([cells]);
+    sheet.getRange(destination,5).setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['Новая','В работе','Разобрана'],true).setAllowInvalid(false).build());
     sheet.getRange(destination,9).setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
     sheet.setRowHeight(destination,68);
     SpreadsheetApp.flush();
-    const receipt=sheet.getRange(destination,1,1,9).getValues()[0];
-    if(receipt[0]!==number||receipt[7]!==normalized.key||JSON.parse(receipt[8]).hash!==hash) throw Error('Не удалось подтвердить сохранение. Повторите отправку');
+    const receipt=sheet.getRange(destination,1,1,9).getValues()[0], saved=readSnapshot_(ss,receipt[8]);
+    if(receipt[0]!==number || receipt[7]!==normalized.key || saved.hash!==hash || digest_(JSON.stringify(saved))!==digest_(snapshot)) throw Error('Не удалось подтвердить сохранение. Повторите отправку');
     return {id:normalized.key,number};
   } finally { lock.releaseLock(); }
 }
