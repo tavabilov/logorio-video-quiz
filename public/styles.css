@@ -70,7 +70,7 @@ h1,h2{font-family:Shadow,Montserrat,Arial,sans-serif;font-weight:400;letter-spac
 /* Desktop task workspace: keep media, answers and navigation within reach. */
 .contact-fields>.field-group+.field-group{margin-top:0}
 @media(min-width:701px){
- html{scroll-padding-bottom:140px}
+ html:has(.quiz-flow){scroll-padding-bottom:140px}
  .shell:has(>.quiz-flow){--work-width:min(1184px,calc(100vw - 96px));--chapter-width:218px}
  .quiz-flow{padding-top:24px;padding-bottom:120px;overflow:visible}
  .quiz-flow .step-heading{font-size:32px;margin-top:12px}
