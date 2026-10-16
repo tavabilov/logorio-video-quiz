@@ -133,3 +133,5 @@ h1,h2{font-family:Shadow,Montserrat,Arial,sans-serif;font-weight:400;letter-spac
  .block-workspace,.review-workspace{margin-top:16px}
 }
 @media(min-width:1001px) and (max-width:1099px){.shell:has(>.quiz-flow){--chapter-width:276px}}
+
+.compound-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.compound-fields>div{min-width:0}.followup-field{margin-top:18px;padding:16px;background:var(--sage);border-radius:12px}.followup-field[hidden],.question[hidden]{display:none}.followup-field .optional{display:inline;font-size:12px}.followup-field textarea{margin-top:8px}.review-list dd{white-space:pre-wrap}@media(max-width:700px){.compound-fields{grid-template-columns:1fr}.followup-field{padding:12px}}

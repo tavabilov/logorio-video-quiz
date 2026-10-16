@@ -5,10 +5,11 @@ import {readFileSync} from 'node:fs';
 import {createHash,randomUUID} from 'node:crypto';
 const code=readFileSync(new URL('../integrations/google-apps-script/Code.gs',import.meta.url),'utf8');
 const seed=JSON.parse(readFileSync(new URL('../content/versions/1.json',import.meta.url),'utf8'));
-const seed2=JSON.parse(readFileSync(new URL('../content/quiz.json',import.meta.url),'utf8'));
+const seed3=JSON.parse(readFileSync(new URL('../content/versions/3.json',import.meta.url),'utf8'));
+const seed2=JSON.parse(readFileSync(new URL('../content/versions/2.json',import.meta.url),'utf8'));
 function questions(c){return c.blocks.flatMap(b=>b.questions)}
 function payload(c,version=1,key='test-key-123456'){
- const answers={};for(const q of questions(c))answers[q.id]=q.options?(q.type==='multiple'?[q.options[0]]:q.options[0]):(q.required?'Синтетический тест':'');
+ const answers={};for(const q of questions(c))answers[q.id]=q.type==='compound'?{fields:Object.fromEntries(q.parts.map(p=>[p.id,'Синтетический тест']))}:q.followup?{value:q.followup.when[0],detail:'Синтетическое уточнение'}:q.options?(q.type==='multiple'?[q.options[0]]:q.options[0]):(q.required?'Синтетический тест':'');
  return{key,version,name:'Вымышленный родитель',contact:'synthetic@example.test',consent:true,answers};
 }
 function harness(){
@@ -60,7 +61,7 @@ test('quiz getters return independent copies and version two is pinned too',()=>
  h.props.set('QUIZ_FINGERPRINT_2','not-the-published-content');assert.throws(()=>h.ctx.saveSubmission(payload(seed2,2)),/версия изменена/);
 });
 test('known version, consent, required answers, text limits and question IDs are validated',()=>{
- const h=harness();for(const p of [{...h.payload,version:3},{...h.payload,version:'1'},{...h.payload,consent:false},{...h.payload,answers:{...h.payload.answers,b1q1:''}},{...h.payload,answers:{...h.payload.answers,b1q2:'x'.repeat(301)}},{...h.payload,answers:{...h.payload.answers,unknown:'x'}},{...h.payload,key:'-formula-key'}])assert.throws(()=>h.ctx.saveSubmission(p));
+ const h=harness();for(const p of [{...h.payload,version:4},{...h.payload,version:'1'},{...h.payload,consent:false},{...h.payload,answers:{...h.payload.answers,b1q1:''}},{...h.payload,answers:{...h.payload.answers,b1q2:'x'.repeat(301)}},{...h.payload,answers:{...h.payload.answers,unknown:'x'}},{...h.payload,key:'-formula-key'}])assert.throws(()=>h.ctx.saveSubmission(p));
  assert.equal(h.sheets.size,0);assert.equal(h.locked(),false);
 });
 test('exact source question order is checked before writing into an existing sheet',()=>{
@@ -107,4 +108,59 @@ test('bridge pins parent origin/window/nonce and sends only confirmed receipt',(
  success({id:'id-12345',number:'L-000001',answers:{private:'must not return'}});
  assert.deepEqual(Object.keys(sent[1].m).sort(),['channel','id','number','requestId','type']);assert.equal(sent[1].m.type,'logorio:receipt');
  listener({origin:'https://tavabilov.github.io',source:top,data});failure({message:'Private backend details'});assert.equal(sent.at(-1).m.type,'logorio:error');assert.ok(!JSON.stringify(sent.at(-1)).includes('Private'));
+});
+
+test('v3 preserves all 77 source rows in ten steps and leaves legacy sheets unchanged',()=>{
+ const h=harness();h.ctx.saveSubmission(h.payload);h.ctx.saveSubmission(payload(seed2,2,'legacy-v2-first'));
+ const old=JSON.stringify([...h.sheets].map(([name,s])=>[name,s.rows]));
+ const p=payload(seed3,3,'version-three-key'), normalized=h.ctx.validateSubmission(p,seed3), result=h.ctx.saveSubmission(p), s=h.sheets.get('Ответы — версия 3');
+ assert.equal(seed3.blocks.length,10);assert.equal(questions(seed3).length,77);assert.equal(s.rows[1].length,86);assert.equal(s.getMaxColumns(),86);assert.equal(s.rows[1][6],3);
+ assert.equal(JSON.stringify([...h.sheets].filter(([name])=>name!=='Ответы — версия 3').map(([name,s])=>[name,s.rows])),old);
+ assert.deepEqual(s.rows[0].slice(9),questions(seed3).map(q=>q.id+' · '+q.text));
+ const saved=h.ctx.readSnapshot_({getSheetByName:n=>h.sheets.get(n)},s.rows[1][8]);
+ assert.deepEqual(JSON.parse(JSON.stringify(saved.content)),seed3);assert.deepEqual(JSON.parse(JSON.stringify(saved.answers)),JSON.parse(JSON.stringify(normalized.answers)));assert.equal(Object.keys(saved.answers).length,77);
+ assert.match(s.rows[1][11],/Беременность по счёту: Синтетический тест/);
+ assert.equal(h.ctx.saveSubmission(p).number,result.number);assert.equal(s.rows.length,2);
+ assert.throws(()=>h.ctx.saveSubmission({...p,key:h.payload.key}),/Ключ уже/);
+});
+
+test('v3 Node and GAS agree on compounds, conditional requirements and clearing stale hidden answers',async()=>{
+ const {validateContent,validateSubmission}=await import('../lib/validation.mjs');assert.doesNotThrow(()=>validateContent(seed3));
+ const h=harness(),base=payload(seed3,3),question=questions(seed3).find(q=>q.followup?.required&&!q.showWhen),optional=questions(seed3).find(q=>q.followup&&!q.followup.required),compound=questions(seed3).find(q=>q.type==='compound'),hidden=questions(seed3).find(q=>q.showWhen),parent=questions(seed3).find(q=>q.id===hidden.showWhen.questionId);
+ function both(p){const node=validateSubmission(p,seed3),gas=h.ctx.validateSubmission(p,seed3);assert.deepEqual(JSON.parse(JSON.stringify(gas)),JSON.parse(JSON.stringify(node)));return node;}
+ both(base);
+ for(const bad of [{value:question.followup.when[0],detail:''},{value:'Несуществующий вариант',detail:'тест'},{value:question.followup.when[0],detail:'x'.repeat(question.followup.maxLength+1)}]){
+  const p=structuredClone(base);p.answers[question.id]=bad;assert.throws(()=>validateSubmission(p,seed3));assert.throws(()=>h.ctx.validateSubmission(p,seed3));
+ }
+ const p=structuredClone(base),nonTrigger=question.options.find(v=>!question.followup.when.includes(v));p.answers[question.id]={value:nonTrigger,detail:'устаревший текст'};p.answers[optional.id]={value:optional.followup.when[0],detail:''};p.answers[parent.id]=parent.options.find(v=>!hidden.showWhen.values.includes(v));
+ for(const q of questions(seed3).filter(q=>q.showWhen?.questionId===parent.id))p.answers[q.id]={invalid:'x'.repeat(10000)};
+ const normalized=both(p);assert.equal(normalized.answers[question.id].detail,'');assert.equal(normalized.answers[hidden.id],'');
+ const emptyHidden=structuredClone(p);for(const q of questions(seed3).filter(q=>q.showWhen?.questionId===parent.id))emptyHidden.answers[q.id]='';assert.deepEqual(both(emptyHidden),normalized);
+ const missing=structuredClone(base);missing.answers[compound.id]={fields:{[compound.parts[0].id]:'Первая'}};assert.throws(()=>both(missing),/Укажите/);
+ const invalidPart=structuredClone(base);invalidPart.answers[compound.id].fields.unknown='text';assert.throws(()=>both(invalidPart),/Некорректные поля/);
+ const unknown=structuredClone(base);unknown.answers.unknown='text';assert.throws(()=>both(unknown),/Неизвестный вопрос/);
+});
+
+test('v3 large structured snapshots use their own chunks and preserve all fields and details',()=>{
+ const h=harness(),p=payload(seed3,3,'large-version-three');
+ for(const q of questions(seed3)){
+  if(q.followup)p.answers[q.id]={value:q.followup.when[0],detail:'СИНТЕТИКА 🙂 '.repeat(400).slice(0,3900)};
+  else if(q.type==='long'||q.type==='short')p.answers[q.id]='СИНТЕТИКА '.repeat(450).slice(0,q.maxLength||450);
+ }
+ const expected=h.ctx.validateSubmission(p,seed3),r=h.ctx.saveSubmission(p),s=h.sheets.get('Ответы — версия 3'),manifest=JSON.parse(s.rows[1][8]);
+ assert.equal(manifest.snapshotSheet,'Снимки — версия 3');assert.ok(manifest.totalChars>49000);assert.equal(h.sheets.has('Снимки — версия 2'),false);
+ const saved=h.ctx.readSnapshot_({getSheetByName:n=>h.sheets.get(n)},s.rows[1][8]);assert.deepEqual(JSON.parse(JSON.stringify(saved.answers)),JSON.parse(JSON.stringify(expected.answers)));assert.equal(Object.keys(saved.answers).length,77);
+ assert.equal(h.ctx.saveSubmission(p).number,r.number);assert.equal(s.rows.length,2);
+ h.sheets.get('Снимки — версия 3').rows[1][3]+='corruption';assert.throws(()=>h.ctx.saveSubmission(p),/Снимок повреждён/);
+});
+
+test('extended content rejects unsafe part IDs, invalid followups and forward visibility references',async()=>{
+ const {validateContent}=await import('../lib/validation.mjs');
+ for(const mutate of [c=>c.blocks[0].questions[2].parts[0].id='__proto__',c=>c.blocks[1].questions[1].followup.when=['Unknown'],c=>c.blocks[0].questions[0].showWhen={questionId:'v3_b3_q4',values:['Да']}]){const c=structuredClone(seed3);mutate(c);assert.throws(()=>validateContent(c));}
+});
+
+
+test('GAS shared rules remain an exact build copy of the browser rule module',()=>{
+ const rules=readFileSync(new URL('../public/question-rules.js',import.meta.url),'utf8').replaceAll('export function','function');
+ assert.ok(code.includes(rules.trim()),'Regenerate the GAS rule copy after changing shared rules');
 });
