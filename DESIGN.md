@@ -235,3 +235,11 @@ The user requested a stronger centered price comparison: a full-width sage surfa
 ## Balanced desktop opening, 20 October 2026
 
 User correction supersedes the full-width price-strip layout: centered heading and introduction above a two-column composition, large 16:9 video on the left, compact centered comparison and short explanation on the right, with the start/resume action directly beneath it. The duplicate three-step pricing section is removed. At 1280x720 the hero ends at y680; the video renders about553x311 instead of the earlier150px height cap. Mobile uses the DOM order introduction, video, offer, action; the start action stays fixed and all explanation content can scroll above it. The questionnaire, saved-attempt logic and Google intake are unchanged.
+
+## Unified responsive grid, 20 October 2026
+
+The shared layout section replaces accumulated parent-layout revisions. The page container is1200px with responsive gutters48/28/20/16px; chapter rail188px and column gap32px. At1000px and below the chapter index becomes an expandable full-width menu, matching its JavaScript breakpoint, so tablets retain usable question width. The home offer and actions have one explicit stack next to the large video; video height no longer sets the gap before the action.
+
+ResizeObserver measures the actual content column, navigation height and sticky lesson height. Fixed navigation aligns to the measured column rather than duplicated viewport arithmetic. Page and footer reserve the actual navigation height plus24px, including safe-area padding and wrapped status text. The same gutter governs fields, footer and mobile actions. Contact labels reserve equal height in paired columns; compound fields and choices use minmax tracks and collapse on mobile. Keyboard mode unpins video and hides ordinary navigation on phones and coarse-pointer tablets. Published privacy CSS now uses the same asset fingerprint as the main application.
+
+Validation:99 chapter/review layouts across9 viewport sizes320–1440px, aligned content/navigation edges, no horizontal overflow, wrapped navigation reserve, privacy layouts, complete synthetic mobile journey including edit/resume and mocked success, and simulated tablet keyboard geometry. Questionnaire and Google receiver are unchanged. The mocked completion checks layout only and sends no new row to Google.
