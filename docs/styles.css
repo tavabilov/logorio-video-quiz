@@ -194,3 +194,13 @@ body:has(.parent-shell){background:#fff}
 .keyboard-open .parent-shell .lesson-video{position:static}
 .parent-shell .step-heading{overflow-wrap:anywhere}
 .parent-shell .readable-section summary::after{display:none}
+/* Text entry on touch screens: free the full reading area and offer an explicit exit. */
+.keyboard-actions{display:none}
+.keyboard-actions[hidden]{display:none!important}
+.keyboard-open .parent-shell .block-workspace>.lesson-video{position:static}
+.keyboard-open .parent-shell{--video-clearance:16px}
+.keyboard-open .parent-shell .keyboard-actions{display:flex;position:fixed;z-index:6;left:0;right:0;bottom:var(--keyboard-bottom,0px);align-items:center;justify-content:space-between;gap:16px;padding:10px 18px calc(10px + env(safe-area-inset-bottom));background:white;border-top:1px solid var(--line)}
+.keyboard-actions>span{font-size:12px;line-height:1.45;max-width:26ch;color:var(--muted)}
+.keyboard-actions>.button{min-width:96px;min-height:44px;padding:10px 18px;font-size:14px;flex-shrink:0}
+.keyboard-open .parent-shell input,.keyboard-open .parent-shell textarea{scroll-margin-top:16px;scroll-margin-bottom:86px}
+.keyboard-open .parent-shell{padding-bottom:calc(var(--keyboard-bottom,0px) + 110px)}
