@@ -231,3 +231,7 @@ User-supplied commercial reason: parents fill the questionnaire independently be
 ## Centered opening offer, 20 October 2026
 
 The user requested a stronger centered price comparison: a full-width sage surface with centered labels, Montserrat ExtraBold crossed-out 3,500 and 999. The home chapter overview and introductory question counts are removed. The start control is the only action before a quiz has been started; saved attempts expose Continue and Start again. An explicit persisted started flag preserves empty started attempts and existing draft versions remain readable.
+
+## Balanced desktop opening, 20 October 2026
+
+User correction supersedes the full-width price-strip layout: centered heading and introduction above a two-column composition, large 16:9 video on the left, compact centered comparison and short explanation on the right, with the start/resume action directly beneath it. The duplicate three-step pricing section is removed. At 1280x720 the hero ends at y680; the video renders about553x311 instead of the earlier150px height cap. Mobile uses the DOM order introduction, video, offer, action; the start action stays fixed and all explanation content can scroll above it. The questionnaire, saved-attempt logic and Google intake are unchanged.
