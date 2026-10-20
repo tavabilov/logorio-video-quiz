@@ -248,3 +248,49 @@ body:has(.parent-shell){background:#fff}
  .parent-shell .consultation-offer{padding-top:16px;padding-bottom:16px}
  .parent-shell .consultation-offer .offer-condition{margin-top:14px}
 }
+/* Center the price comparison as the opening screen's main visual anchor. */
+.parent-shell .quiz-home .intro{grid-template-areas:"copy media" "offer offer" "actions actions";gap:20px 48px}
+.parent-shell .quiz-home .intro-copy{grid-area:copy;align-self:center}
+.parent-shell .quiz-home .intro-media{grid-area:media;position:static;max-width:400px;justify-self:end;padding:16px}
+.parent-shell .quiz-home .intro-media .media-title,.parent-shell .quiz-home .intro-media .media-description{display:none}
+.parent-shell .quiz-home .consultation-offer{grid-area:offer;width:100%;margin:0;padding:20px 24px;background:var(--sage);border:0;border-radius:16px;text-align:center}
+.parent-shell .quiz-home .consultation-offer>p:first-child{font-size:17px}
+.parent-shell .quiz-home .consultation-offer .offer-price{grid-template-columns:minmax(0,230px) 32px minmax(0,230px);justify-content:center;gap:24px;margin-top:12px}
+.parent-shell .quiz-home .price-option{align-items:center;gap:4px}
+.parent-shell .quiz-home .price-option>span{max-width:26ch;min-height:0}
+.parent-shell .quiz-home .offer-price del{font-size:56px;font-weight:800;letter-spacing:-.03em;text-decoration-thickness:3px}
+.parent-shell .quiz-home .offer-price strong{font-size:64px;font-weight:800}
+.parent-shell .quiz-home .price-transition{align-self:center;padding:16px 0 0}
+.parent-shell .quiz-home .consultation-offer .offer-condition{max-width:75ch;margin:12px auto 0}
+.parent-shell .quiz-home .intro-actions{grid-area:actions;text-align:center}
+.parent-shell .quiz-home .intro-actions .actions{justify-content:center}
+.parent-shell .quiz-home .intro-actions .save-intro{margin-top:10px}
+@media(min-width:701px) and (max-height:800px){
+ .parent-shell .quiz-home .intro{padding-top:24px;row-gap:16px}
+ .parent-shell .quiz-home .intro-media video{max-height:150px}
+ .parent-shell .quiz-home .intro-media .video-start{margin-top:10px;min-height:44px;font-size:13px}
+ .parent-shell .quiz-home .intro-media .video-caption{margin-top:8px;font-size:11px}
+ .parent-shell .quiz-home .consultation-offer{padding:16px 24px}
+ .parent-shell .quiz-home .offer-price del{font-size:50px}
+ .parent-shell .quiz-home .offer-price strong{font-size:58px}
+}
+@media(max-width:700px){
+ .parent-shell .quiz-home .intro-media{max-width:none;align-self:stretch}
+ .parent-shell .quiz-home .consultation-offer{padding:20px 14px}
+ .parent-shell .quiz-home .consultation-offer .offer-price{grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:8px;margin-top:16px}
+ .parent-shell .quiz-home .offer-price del{font-size:38px}
+ .parent-shell .quiz-home .offer-price strong{font-size:46px}
+ .parent-shell .quiz-home .price-option>span{font-size:11px;min-height:34px}
+ .parent-shell .quiz-home .consultation-offer .offer-condition{font-size:13px;margin-top:16px}
+ .parent-shell .quiz-home .intro-actions .actions{flex-wrap:nowrap;gap:12px}
+ .parent-shell .quiz-home .intro-actions [data-reset]{font-size:12px;max-width:90px;line-height:1.4}
+}
+@media(max-width:360px){
+ .parent-shell .quiz-home .offer-price del{font-size:32px}
+ .parent-shell .quiz-home .offer-price strong{font-size:38px}
+}
+.parent-shell .quiz-home .price-option>span{min-height:36px}
+.parent-shell .quiz-home .price-transition{align-self:end;padding:0 0 18px}
+.home-demo-note{margin-top:12px}
+@media(max-width:700px){.parent-shell .quiz-home .price-option>span{min-height:34px}.parent-shell .quiz-home .price-transition{padding-bottom:14px}}
+@media(max-width:360px){.parent-shell .quiz-home .price-option>span{min-height:50px}.parent-shell .quiz-home .price-transition{padding-bottom:10px}}

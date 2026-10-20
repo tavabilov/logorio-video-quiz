@@ -227,3 +227,7 @@ An edit launched from final review has a dedicated return action. The mode survi
 ### Preparation-based offer explanation, 20 October 2026
 
 User-supplied commercial reason: parents fill the questionnaire independently before the meeting, reducing time spent collecting initial information during the consultation; specialists review answers and perform diagnostics. The opening screen now contrasts labelled prices: no prior questionnaire3,500 RUB (bold800, clearly struck through), questionnaire completed before meeting999 RUB. A short causal explanation sits beside the comparison. The following open section explains the three steps in a flat sequence. No time estimates, diagnosis guarantees, deadlines or unchanged-service claims have been invented. The hero headline is shortened to keep the primary action visible. Compact desktop adjustments cover720px-tall windows; mobile keeps its fixed start action. Questionnaire, data collection and diagnostic questions are untouched.
+
+## Centered opening offer, 20 October 2026
+
+The user requested a stronger centered price comparison: a full-width sage surface with centered labels, Montserrat ExtraBold crossed-out 3,500 and 999. The home chapter overview and introductory question counts are removed. The start control is the only action before a quiz has been started; saved attempts expose Continue and Start again. An explicit persisted started flag preserves empty started attempts and existing draft versions remain readable.
