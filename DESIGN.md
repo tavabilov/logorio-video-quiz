@@ -2,7 +2,7 @@
 name: "Логорио — видео-квиз"
 description: "Фирменное оформление по предоставленной концепции центра; демонстрационные видео и вопросы"
 colors:
-  paper: "#fff9f1"
+  paper: "#ffffff"
   white: "#fff"
   ink: "#29371e"
   muted: "#596547"
@@ -15,8 +15,8 @@ colors:
   error: "#a7372c"
   green-hover: "#3a482c"
   soft-hover: "#dce3c6"
-  neutral-note: "#f0e3d3"
-  neutral-note-text: "#5b5145"
+  neutral-note: "#f6f8ef"
+  neutral-note-text: "#596547"
   preview: "#ebdbc6"
   preview-text: "#654b32"
   field-border: "#adb596"
@@ -201,3 +201,13 @@ h1/h2: Shadow 400, uppercase, межбуквенный интервал .015em. 
 ## Клиентская структура от16октября2026
 
 Авторитетный DOCX с вариантами задаёт10блоков и77вопросов в фиксированном порядке. Текстовые поля дополняют радиокнопки: условные уточнения на светлой sage-поверхности, составные пары полей вдве колонки на десктопе и последовательно на телефоне. Условие меняет только соответствующие поля без перерисовки видео. Скрытые ответы очищаются. Навигация и закреплённое действие работают при14вопросах в одном блоке.
+
+## Simplified parent journey, 20 October 2026
+
+This supersedes the desktop layout dated 15 October. The quiz remains Operate; the opening offer is Persuade. The parent surface uses white paper with forest text and light olive #f6f8ef accents. Existing demo footage and its beige frames remain placeholders. Employee pages are outside this redesign.
+
+One document scroll: a compact 188px chapter index and a single main sequence of video, readable notes and answer fields. No independently scrolling menu, transcript or question column. Only the video row sticks within the chapter. Review and contact fields follow vertically too. Mobile navigation folds into a named chapter menu; the video has a bounded height, and the primary action stays at the bottom. While the software keyboard is detected, the video returns to normal document flow and the dock hides.
+
+Question lists and transcripts up to 600 characters open by default. Longer material uses native details with an explicit expand/collapse action. Actual answer fields stay expanded. Chapter labels are shortened only in navigation; the source headings and 77 questions remain intact.
+
+The opening offer is the user's supplied 3,500 RUB crossed out and 999 RUB for a consultation/diagnostic meeting when the questionnaire is completed before the meeting. No expiry, checkout or additional conditions are invented. Each of the ten chapters has its own written cue and a distinct combination of existing boy/girl poses. Brief gestures repeat twice, then stop; reduced motion disables them. No speech synthesis or animation dependency is added. Main content no longer slides on chapter changes.
